@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIDS Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Global box-sizing */
+    * {
+      box-sizing: border-box;
+    }
+    /* Fixed height for the chart container with relative positioning for absolutely positioned children */
+    #trafficChartContainer {
+      height: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-4">
+  <!-- Status Bar: Full-width status bar at the top -->
+  <div id="status" class="bg-green-500 text-white text-center py-2 mb-4 rounded text-sm">
+    Connected
+  </div>
+  <div class="max-w-6xl mx-auto h-screen grid grid-rows-2 gap-4">
+    <!-- Top Half: Chart -->
+    <div class="row-span-1 bg-white p-4 rounded shadow flex flex-col">
+      <h2 class="font-semibold">Traffic Overview</h2>
+      <div id="trafficChartContainer" class="flex-grow">
+        <canvas id="trafficChart"></canvas>
+      </div>
+    </div>
+    <!-- Bottom Half: Two sections side by side -->
+    <div class="row-span-1 grid grid-cols-2 gap-4">
+      <!-- Intrusion Alerts -->
+      <div class="bg-white p-4 rounded shadow flex flex-col h-96">
+        <h2 class="font-semibold mb-2">Intrusion Alerts</h2>
+        <!-- Outer container with padding and fixed height -->
+        <div class="w-full h-full p-2">
+          <!-- Updated scroll box with a max-height to prevent overlapping -->
+          <div id="alerts" class="w-full overflow-auto text-red-500 font-bold" style="max-height: calc(100% - 1rem);"></div>
+        </div>
+      </div>
+      <!-- Network Statistics -->
+      <div class="bg-white p-4 rounded shadow flex flex-col h-96">
+        <h2 class="font-semibold mb-2">Network Statistics</h2>
+        <div class="grid grid-cols-2 gap-2 h-full">
+          <div class="bg-blue-100 p-2 rounded text-center flex flex-col items-center justify-center h-full">
+            <p class="text-sm text-blue-600">Total Packets</p>
+            <p id="totalPackets" class="text-lg font-bold">0</p>
+          </div>
+          <div class="bg-blue-100 p-2 rounded text-center flex flex-col items-center justify-center h-full">
+            <p class="text-sm text-blue-600">Anomalies</p>
+            <p id="anomalies" class="text-lg font-bold">0</p>
+          </div>
+          <div class="bg-blue-100 p-2 rounded text-center col-span-2 flex flex-col items-center justify-center h-full">
+            <p class="text-sm text-blue-600">Detection Rate</p>
+            <p id="detectionRate" class="text-lg font-bold">0%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Statistics object.
+    const stats = { totalPackets: 0, totalAnomalies: 0 };
+
+    // Set up Chart.js.
+    const trafficCtx = document.getElementById("trafficChart").getContext("2d");
+    const trafficChart = new Chart(trafficCtx, {
+      type: "line",
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: "Normal Traffic",
+            backgroundColor: "rgba(46, 204, 113, 0.2)",
+            borderColor: "#2ecc71",
+            data: [],
+            fill: true,
+          },
+          {
+            label: "Anomalies",
+            backgroundColor: "rgba(231, 76, 60, 0.2)",
+            borderColor: "#e74c3c",
+            data: [],
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        animation: { duration: 300 },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: 15  // Adjust this value as needed
+          }
+        },
+      },
+    });
+
+    // Counters for aggregating traffic between chart updates.
+    let normalTrafficCount = 0;
+    let anomalyTrafficCount = 0;
+
+    // Update the chart every 1 second with aggregated values using requestAnimationFrame for smooth updates.
+    function updateChart() {
+      const currentTimeLabel = new Date().toLocaleTimeString();
+      if (
+        trafficChart.data.labels.length === 0 ||
+        trafficChart.data.labels[trafficChart.data.labels.length - 1] !== currentTimeLabel
+      ) {
+        trafficChart.data.labels.push(currentTimeLabel);
+        trafficChart.data.datasets[0].data.push(normalTrafficCount);
+        trafficChart.data.datasets[1].data.push(anomalyTrafficCount);
+        normalTrafficCount = 0;
+        anomalyTrafficCount = 0;
+        if (trafficChart.data.labels.length > 50) {
+          trafficChart.data.labels.shift();
+          trafficChart.data.datasets.forEach((dataset) => dataset.data.shift());
+        }
+        trafficChart.update();
+      }
+      requestAnimationFrame(updateChart);
+    }
+    requestAnimationFrame(updateChart);
+
+    // WebSocket connection.
+    let ws;
+    const connectWebSocket = () => {
+      ws = new WebSocket("ws://127.0.0.1:8000/ws");
+      ws.onopen = function () {
+        console.log("WebSocket connection opened.");
+        const statusEl = document.getElementById("status");
+        statusEl.textContent = "Connected";
+        statusEl.classList.remove("bg-red-500");
+        statusEl.classList.add("bg-green-500");
+      };
+      ws.onmessage = function (event) {
+        try {
+          const data = JSON.parse(event.data);
+          stats.totalPackets++;
+          if (data.prediction_label === "anomaly") {
+            stats.totalAnomalies++;
+            const alertMsg = `
+              <div class="p-2 bg-red-100 rounded mb-2">
+                <p class="font-bold text-red-500">${new Date().toLocaleTimeString()}</p>
+                <p>${data.intrusion_type}: ${data.evidence.join("; ")}</p>
+              </div>`;
+            document.getElementById("alerts").insertAdjacentHTML("beforeend", alertMsg);
+          }
+          document.getElementById("totalPackets").textContent = stats.totalPackets;
+          document.getElementById("anomalies").textContent = stats.totalAnomalies;
+          document.getElementById("detectionRate").textContent =
+            `${((stats.totalAnomalies / stats.totalPackets) * 100).toFixed(2)}%`;
+
+          if (data.prediction_label === "normal") {
+            normalTrafficCount++;
+          } else if (data.prediction_label === "anomaly") {
+            anomalyTrafficCount++;
+          }
+        } catch (error) {
+          console.error("WebSocket message error:", error);
+        }
+      };
+      ws.onclose = function () {
+        console.error("WebSocket connection closed. Reconnecting in 3 seconds...");
+        const statusEl = document.getElementById("status");
+        statusEl.textContent = "Disconnected";
+        statusEl.classList.remove("bg-green-500");
+        statusEl.classList.add("bg-red-500");
+        setTimeout(connectWebSocket, 3000);
+      };
+      ws.onerror = function (error) {
+        console.error("WebSocket encountered an error:", error);
+      };
+    };
+    connectWebSocket();
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Ignore large dataset files and folder
+combined_cic_ids2017.csv
+combined_cic_ids2017_30percent.csv
+test_preprocessed.csv
+train_preprocessed.csv
+__pycache__
+attack_flows_no_labels.csv
+venv/
+
+
+
+
