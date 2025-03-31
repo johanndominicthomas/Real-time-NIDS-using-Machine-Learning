@@ -7,6 +7,9 @@ __pycache__
 attack_flows_no_labels.csv
 venv/
 .ipynb_checkpoints/
+logs/*
+!logs/.keep
+attack_flows_no_labels.csv
 
 
 
