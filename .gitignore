@@ -6,6 +6,8 @@ train_preprocessed.csv
 __pycache__
 attack_flows_no_labels.csv
 venv/
+.ipynb_checkpoints/EDA-checkpoint.ipynb
+
 
 
 
