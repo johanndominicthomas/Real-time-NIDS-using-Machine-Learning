@@ -38,11 +38,24 @@ This will generate a combined dataset file called combined_cic_ids2017.csv in th
 
 ---
 
-### 4. Create a 10% subset (Optional)
-- If you want to work with a smaller dataset for faster training or testing, you can create a random **10% subset** by running:
+### 4. Create a 50% subset (Optional)   
+- Since the combined dataset csv file is large ,it can take time to train the XgBoost Machine Learning Model.
+- If you want to work with a smaller dataset for faster training or testing, you can create a random **50% subset** by running:
 
 ```bash
 python create_subset.py
 ```
+- To increase the percentage to be used in the subset, open **create_subset.py** using a text editor and edit the following lines:
+  -Change the 0.3 in the following line to required percentage (Eg: 0.5 for 50%):
+  ```
+  df_sampled=df.sample(frac=0.3,random_state=42)
+
+  print(f"30% of the dataset saved to {subset_file}")
+  ```
+  -Change the 30 in the following lines to required percentage:
+  ```
+  subset_file='combined_cic_ids2017_30percent.csv'
+  ```
+
 
 
