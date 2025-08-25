@@ -39,8 +39,8 @@ This will generate a combined dataset file called combined_cic_ids2017.csv in th
 ---
 
 ### 4. Create a 50% subset (Optional)   
-- Since the combined dataset csv file is large ,it can take time to train the XgBoost Machine Learning Model.
-- If you want to work with a smaller dataset for faster training or testing, you can create a random **50% subset** by running:
+- The combined dataset csv file is large ,it can take time to train the XgBoost Machine Learning Model.If you want to make the process of training or testing faster, run the following:
+
 
 ```bash
 python create_subset.py
@@ -57,5 +57,12 @@ python create_subset.py
   subset_file='combined_cic_ids2017_30percent.csv'
   ```
 
+- When using a subset csv file, Ensure to change the input csv file name in **preprocessing_classifier.py** file. To do so:
+  - Open **preprocessing_classifier.py** in a text editor and edit the filename to the filename of your subset csv file:
+  ```
+  combined_file_path = 'combined_cic_ids2017_30percent.csv'
+  ```
+
+  Thats all with setting up the Datasets.You can go back and follow the remaining steps.
 
 
