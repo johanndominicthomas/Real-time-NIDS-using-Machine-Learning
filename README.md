@@ -46,7 +46,8 @@ pip install -r requirements.txt
 
 
 ### 3. To set up the Datasets:
--  Go to [Datasets.md](https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning/blob/master/Datasets/Datasets.md)
+-  Go to [Datasets.md](./Datasets/Datasets.md) and follow the instructions to download and place the CICIDS2017 dataset.
+
 
 
 ### 4. Preprocess the dataset:
@@ -62,7 +63,7 @@ python preprocessing_attack.py
 ### 6. Now to run the project:
 **On Linux:**
 ```
-sudo venv/bin/activate main.py
+sudo venv/bin/python main.py
 ```
 
 **On Windows:**
