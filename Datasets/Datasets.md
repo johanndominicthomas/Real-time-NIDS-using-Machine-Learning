@@ -46,13 +46,13 @@ This will generate a combined dataset file called combined_cic_ids2017.csv in th
 python create_subset.py
 ```
 - To increase the percentage to be used in the subset, open **create_subset.py** using a text editor and edit the following lines:
-  -Change the 0.3 in the following line to required percentage (Eg: 0.5 for 50%):
+  - Change the 0.3 in the following line to required percentage (Eg: 0.5 for 50%):
   ```
   df_sampled=df.sample(frac=0.3,random_state=42)
 
   print(f"30% of the dataset saved to {subset_file}")
   ```
-  -Change the 30 in the following lines to required percentage:
+  - Change the 30 in the following lines to required percentage:
   ```
   subset_file='combined_cic_ids2017_30percent.csv'
   ```
@@ -63,11 +63,11 @@ python create_subset.py
   ```
   combined_file_path = 'combined_cic_ids2017_30percent.csv'
   ```
--If you want to use the entire dataset, Open **preprocessing_classifier.py** in a text editor and edit the filename  to **combined_cic_ids2017.csv**:
+- If you want to use the entire dataset, Open **preprocessing_classifier.py** in a text editor and edit the filename  to **combined_cic_ids2017.csv**:
   ```
   combined_file_path = 'combined_cic_ids2017.csv'
   ```
   
-Thats all with setting up the Datasets.You can go back and follow the remaining steps.
+### Thats all with setting up the Datasets.You can go back and follow the remaining steps.
 
 
