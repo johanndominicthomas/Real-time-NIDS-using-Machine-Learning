@@ -1,29 +1,29 @@
 #Real-Time-Network-Intrusion-Detection-System-Using-Machine-Learning
 
--This project uses a self trained XgBoost Classifier model to detect anomalies in real time network traffic.
--The model was trained using the CICIDS2017 Dataset.
--Scapy is used to capture real time packets which is aggregated into a flow which is passed to the XgBoost Model.
--If Anomalies are detected, then they are displayed on the dashboard.
+-  This project uses a self trained XgBoost Classifier model to detect anomalies in real time network traffic.
+-  The model was trained using the CICIDS2017 Dataset.
+-  Scapy is used to capture real time packets which is aggregated into a flow which is passed to the XgBoost Model.
+-  If Anomalies are detected, then they are displayed on the dashboard.
 
 To set up the project, follow the below steps:
-1)Clone the git repository:
--If git and pip are'nt installed ,Install them.
--After that open a terminal or command prompt and enter the following command:
+1) Clone the git repository:
+-  If git and pip are'nt installed ,Install them.
+-  After that open a terminal or command prompt and enter the following command:
 ```
 git clone https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning.git
 ```
--cd into your cloned repo:
+-  cd into your cloned repo:
 ```
 cd Real-time-NIDS-using-Machine-Learning/
 ```
 
-2)Installing the requirements:
--Create a virtual environment:
+2) Installing the requirements:
+-  Create a virtual environment:
 ```
 python -m venv venv
 ```
 
--Activate the virtual environment:
+-  Activate the virtual environment:
  On Windows:
 ```
 venv\Scripts\activate
@@ -42,7 +42,8 @@ pip install -r requirements.txt
 
 
 
-3)To set up the Datasets, go to [Datasets.md](https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning/blob/master/Datasets/Datasets.md)
+3) To set up the Datasets, go to [Datasets.md](https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning/blob/master/Datasets/Datasets.md)
+
 
 4)Now to preprocess the dataset:
 ```
@@ -61,7 +62,7 @@ sudo venv/bin/activate main.py
 ```
 
 On Windows:
--In Windows, Scapy requires the npcap driver to access raw sockets.To install it:
+-  In Windows, Scapy requires the npcap driver to access raw sockets.To install it:
  Go to the [npcap site](https://npcap.com/#download).
  Download the latest npcap installer.
  Run the exe file and during installation, check the following boxes:
@@ -73,4 +74,4 @@ Now to run the project, run the follwing command:
 venv/bin/activate main.py
 ```
 
--Click on the url to go to the Dashboard.
+-  Click on the url to go to the Dashboard.
