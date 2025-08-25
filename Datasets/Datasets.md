@@ -57,12 +57,17 @@ python create_subset.py
   subset_file='combined_cic_ids2017_30percent.csv'
   ```
 
+### 5. Selecting Subset vs Full Dataset
 - When using a subset csv file, Ensure to change the input csv file name in **preprocessing_classifier.py** file. To do so:
-  - Open **preprocessing_classifier.py** in a text editor and edit the filename to the filename of your subset csv file:
+  - Open **preprocessing_classifier.py** in a text editor and edit the filename to that  of your subset csv file:
   ```
   combined_file_path = 'combined_cic_ids2017_30percent.csv'
   ```
-
-  Thats all with setting up the Datasets.You can go back and follow the remaining steps.
+-If you want to use the entire dataset, Open **preprocessing_classifier.py** in a text editor and edit the filename  to **combined_cic_ids2017.csv**:
+  ```
+  combined_file_path = 'combined_cic_ids2017.csv'
+  ```
+  
+Thats all with setting up the Datasets.You can go back and follow the remaining steps.
 
 
