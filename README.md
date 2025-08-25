@@ -9,7 +9,7 @@
 
 ## 🚀 Setup Instructions
 
-###1. Clone the git repository:
+### 1. Clone the git repository:
 -  If 'git' and 'pip' are not installed ,please install them first.
 -  Open a terminal or command prompt and run:
 ```
@@ -17,7 +17,7 @@ git clone https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Le
 cd Real-time-NIDS-using-Machine-Learning/
 ```
 
-###2. Installing the requirements:
+### 2. Installing the requirements:
 -  Create a virtual environment:
 ```
 python -m venv venv
@@ -42,20 +42,21 @@ pip install -r requirements.txt
 
 
 
-###3. To set up the Datasets, go to [Datasets.md](https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning/blob/master/Datasets/Datasets.md)
+### 3. To set up the Datasets:
+-  Go to [Datasets.md](https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning/blob/master/Datasets/Datasets.md)
 
 
-###4. Preprocess the dataset:
+### 4. Preprocess the dataset:
 ```
 python preprocessing_classifier.py
 ```
 
-###5. Create the attack simulation csv:
+### 5. Create the attack simulation csv:
 ```
 python preprocessing_attack.py
 ```
 
-###6. Now to run the project:
+### 6. Now to run the project:
 **On Linux:**
 ```
 sudo venv/bin/activate main.py
