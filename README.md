@@ -27,7 +27,7 @@ cd Real-time-NIDS-using-Machine-Learning/
 python -m venv venv
 ```
 
--  Activate the virtual environment:     
+-  Activate the virtual environment:
 **On Windows:**
 ```
 venv\Scripts\activate
