@@ -2,7 +2,7 @@
 
 -  This project uses a self trained **XgBoost Classifier** model to detect anomalies in real time network traffic.
 -  The model was trained using the **CICIDS2017 Dataset**.
--  **Scapy** is used to capture real time packets which is aggregated into a flow which is passed to the XgBoost Model.
+-  **Scapy** is used to capture real time packets which is aggregated into a flow.The aggregated flows are passed to the XgBoost Model for real time detection.
 -  If anomalies are detected, then they are displayed on the **dashboard**.
 
 ---
@@ -14,6 +14,10 @@
 -  Open a terminal or command prompt and run:
 ```
 git clone https://github.com/johanndominicthomas/Real-time-NIDS-using-Machine-Learning.git
+```
+
+-  Cd into your project directory:
+```
 cd Real-time-NIDS-using-Machine-Learning/
 ```
 
@@ -23,16 +27,14 @@ cd Real-time-NIDS-using-Machine-Learning/
 python -m venv venv
 ```
 
--  Activate the virtual environment:
+-  Activate the virtual environment:     
 **On Windows:**
 ```
 venv\Scripts\activate
-
 ```
 **On Linux:**
 ```
 source venv/bin/activate
-
 ```
 
 Installing the requirements:
@@ -76,7 +78,6 @@ Scapy requires the **Npcap driver** to access raw sockets.
 Now to run the project, run the follwing command:
 ```
 venv\Scripts\python main.py
-
 ```
 
 -  Click on the url to go to the Dashboard.
