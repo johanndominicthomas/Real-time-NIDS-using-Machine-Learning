@@ -63,11 +63,11 @@ python create_subset.py
   ```
   combined_file_path = 'combined_cic_ids2017_30percent.csv'
   ```
-- If you want to use the entire dataset, Open **preprocessing_classifier.py** in a text editor and edit the filename  to **combined_cic_ids2017.csv**:
+- If you want to use the entire dataset, open **preprocessing_classifier.py** in a text editor and edit the filename  to **combined_cic_ids2017.csv**:
   ```
   combined_file_path = 'combined_cic_ids2017.csv'
   ```
   
-### Thats all with setting up the Datasets.You can go back and follow the remaining steps.
+#### Thats all with setting up the Datasets.You can go back and follow the remaining steps.
 
 
